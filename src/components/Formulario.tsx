@@ -7,6 +7,7 @@ import { Assessment } from '../types/Assessment';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { DataContext } from '../context/useContext';
+import { useState } from 'react';
 
 interface FormularioProps {
     question: Question
@@ -15,6 +16,7 @@ interface FormularioProps {
 const Formulario = ({ question }: FormularioProps) => {
     const navigate = useNavigate();
     const { setEvaluacion, setNumberQuestion, numberQuestion } = useContext(DataContext);
+    const [loading, setLoading] = useState(false);
 
     const validationSchema = Yup.object({
         respuesta: Yup.string().required('Respuesta es requerido'),
@@ -35,11 +37,13 @@ const Formulario = ({ question }: FormularioProps) => {
             validateOnBlur={false}
             onSubmit={values => {
                 //const valueQuestion = { };
+                setLoading(true);
                 postQuestion(values).then((response) => {
                     setEvaluacion(response as Assessment);
                     navigate('/evaluacion');
                 }).finally(() => {
                     setNumberQuestion(numberQuestion + 1);
+                    setLoading(false);
                 });
 
                 // alert(JSON.stringify(values, null, 2));
@@ -92,7 +96,7 @@ const Formulario = ({ question }: FormularioProps) => {
                             placeholder='Dificultad'
                         />
 
-                        <Button colorScheme='green' mt="20px" type="submit">Enviar</Button>
+                        <Button colorScheme='green' mt="20px" type="submit" isLoading={loading}>Enviar</Button>
                     </Box>
                 </Form>
             )}
