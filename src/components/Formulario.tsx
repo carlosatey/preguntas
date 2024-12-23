@@ -1,83 +1,98 @@
 import { Formik, Form } from 'formik';
-import { Text, Button, Box, Input, Textarea } from "@chakra-ui/react"
+import { Text, Button, Box, Textarea, Input } from "@chakra-ui/react"
 import * as Yup from 'yup';
+import { Question } from '../types/Question';
+import { postQuestion } from '../middleware/pregunta.middelware';
+import { Assessment } from '../types/Assessment';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { DataContext } from '../context/useContext';
 
-const Formulario = () => {
-    const token = import.meta.env.VITE_API_TOKEN;
-    const tenant = import.meta.env.VITE_TENANT;
+interface FormularioProps {
+    question: Question
+}
+
+const Formulario = ({ question }: FormularioProps) => {
+    const navigate = useNavigate();
+    const { setEvaluacion, setNumberQuestion, numberQuestion } = useContext(DataContext);
 
     const validationSchema = Yup.object({
-        token: Yup.string().required('Token es requerido'),
-        tenant: Yup.string().required('Tenant es requerido'),
-        textArea: Yup.string().required('Texto es requerido'),
+        respuesta: Yup.string().required('Respuesta es requerido'),
+        guiaCorreccion: Yup.string().required('Guia de Corrección es requerido')
     });
 
     return (
         <Formik
             initialValues={{
-                token: token ?? '',
-                tenant: tenant ?? '',
-                textArea: ''
+                pregunta: question.pregunta ?? '',
+                respuesta: '',
+                dificultad: question.dificultad ?? '',
+                guiaCorreccion: question.guiaCorreccion ?? ''
             }}
             validationSchema={validationSchema}
             validateOnSubmit={true}
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={values => {
+                //const valueQuestion = { };
+                postQuestion(values).then((response) => {
+                    setEvaluacion(response as Assessment);
+                    navigate('/evaluacion');
+                }).finally(() => {
+                    setNumberQuestion(numberQuestion + 1);
+                });
 
-                alert(JSON.stringify(values, null, 2));
+                // alert(JSON.stringify(values, null, 2));
             }}
         >
             {({ handleChange, values, errors }) => (
                 <Form>
                     <Box display="flex" flexDirection="column" gap="10px" w="50vw">
-                        <Text>Token</Text>
-                        <Input
-                            id="token"
-                            name="token"
-                            type="text"
-                            onChange={handleChange}
-                            value={values.token}
-                        />
-                        <Text
-                            opacity={errors.token ? 1 : 0}
-                            color="red.500"
-                            fontSize="12px"
-                            mb="3px"
-                        >{errors.token as string ?? ''}</Text>
+                        <Text textAlign='center' fontSize="20px">Pregunta #{numberQuestion + 1}: {values.pregunta}</Text>
 
-                        <Text>Tenant</Text>
-                        <Input
-                            id="tenant"
-                            name="tenant"
-                            type="text"
-                            onChange={handleChange}
-                            value={values.tenant}
-                        />
-                        <Text
-                            opacity={errors.tenant ? 1 : 0}
-                            color="red.500"
-                            fontSize="12px"
-                            mb="3px"
-                        >{errors.tenant as string ?? ''}</Text>
-
-                        <Text>Respuesta</Text>
+                        <Text>Respuesta:</Text>
                         <Textarea
-                            id='textArea'
-                            name='textArea'
+                            id='respuesta'
+                            name='respuesta'
                             onChange={handleChange}
-                            value={values.textArea}
+                            value={values.respuesta}
                             placeholder='Escriba su respuesta'
                         />
 
                         <Text
-                            opacity={errors.textArea ? 1 : 0}
+                            opacity={errors.respuesta ? 1 : 0}
                             color="red.500"
                             fontSize="12px"
                             mb="3px"
-                        >{errors.textArea}</Text>
+                        >{errors.respuesta}</Text>
 
-                        <Button colorScheme='green' type="submit">Enviar</Button>
+                        <Text>Guia de Correccion:</Text>
+
+                        <Textarea
+                            id='guiaCorreccion'
+                            name='guiaCorreccion'
+                            onChange={handleChange}
+                            value={values.guiaCorreccion}
+                            placeholder='Guia de correccion'
+                        />
+
+                        <Text
+                            opacity={errors.guiaCorreccion ? 1 : 0}
+                            color="red.500"
+                            fontSize="12px"
+                            mb="3px"
+                        >{errors.guiaCorreccion}</Text>
+
+                        <Text>Dificultad:</Text>
+                        <Input
+                            id='dificultad'
+                            name='dificultad'
+                            onChange={handleChange}
+                            value={values.dificultad}
+                            placeholder='Dificultad'
+                        />
+
+                        <Button colorScheme='green' mt="20px" type="submit">Enviar</Button>
                     </Box>
                 </Form>
             )}

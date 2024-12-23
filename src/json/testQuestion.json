@@ -1,0 +1,63 @@
+[
+    {
+      "pregunta": "¿Cuál es la capital de Francia?",
+      "respuesta": "París",
+      "guiaCorreccion": "La respuesta correcta es París, la capital de Francia.",
+      "dificultad": 1
+    },
+    {
+      "pregunta": "¿Cuánto es 5 x 5?",
+      "respuesta": "25",
+      "guiaCorreccion": "La respuesta correcta es 25, resultado de multiplicar 5 por 5.",
+      "dificultad": 0
+    },
+    {
+      "pregunta": "¿Quién escribió 'Don Quijote de la Mancha'?",
+      "respuesta": "Miguel de Cervantes",
+      "guiaCorreccion": "La respuesta correcta es Miguel de Cervantes, autor de 'Don Quijote de la Mancha'.",
+      "dificultad": 2
+    },
+    {
+      "pregunta": "¿En qué año comenzó la Segunda Guerra Mundial?",
+      "respuesta": "1939",
+      "guiaCorreccion": "La respuesta correcta es 1939, año en que comenzó la Segunda Guerra Mundial.",
+      "dificultad": 2
+    },
+    {
+      "pregunta": "¿Cuál es el idioma oficial de Brasil?",
+      "respuesta": "Portugués",
+      "guiaCorreccion": "La respuesta correcta es portugués, idioma oficial de Brasil.",
+      "dificultad": 1
+    },
+    {
+      "pregunta": "¿Cuántos días tiene un año bisiesto?",
+      "respuesta": "366",
+      "guiaCorreccion": "La respuesta correcta es 366 días, ya que un año bisiesto tiene un día adicional en febrero.",
+      "dificultad": 0
+    },
+    {
+      "pregunta": "¿Cuál es el planeta más grande del sistema solar?",
+      "respuesta": "Júpiter",
+      "guiaCorreccion": "La respuesta correcta es Júpiter, el planeta más grande del sistema solar.",
+      "dificultad": 1
+    },
+    {
+      "pregunta": "¿Qué molécula lleva el código genético en los seres vivos?",
+      "respuesta": "ADN",
+      "guiaCorreccion": "La respuesta correcta es ADN, que lleva el código genético en los seres vivos.",
+      "dificultad": 2
+    },
+    {
+      "pregunta": "¿Cuál es el símbolo químico del agua?",
+      "respuesta": "H2O",
+      "guiaCorreccion": "La respuesta correcta es H2O, símbolo químico del agua.",
+      "dificultad": 0
+    },
+    {
+      "pregunta": "¿En qué continente se encuentra el desierto del Sahara?",
+      "respuesta": "África",
+      "guiaCorreccion": "La respuesta correcta es África, continente donde se encuentra el desierto del Sahara.",
+      "dificultad": 1
+    }
+  ]
+  
